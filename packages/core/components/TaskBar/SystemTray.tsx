@@ -30,7 +30,7 @@ export const SystemTray = ({
       gap="$2"
       {...props}
     >
-      <span>{trayIcons}</span>
+      <span style={{ display: 'flex' }}>{trayIcons}</span>
       {showClock && (
         <span>
           <Clock onClick={clockOnClick} clockAmPm={clockAmPm} />
