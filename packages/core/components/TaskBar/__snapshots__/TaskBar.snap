@@ -3,14 +3,9 @@
 exports[`<TaskBar /> > Snapshots > <Clock /> > should match snapshot 1`] = `
 <div>
   <div
-    class="Frame_paddingLeft-mobile__iuzg899l Frame_paddingRight-mobile__iuzg899r Frame_paddingTop-mobile__iuzg899x Frame_paddingBottom-mobile__iuzg898x Frame_boxShadow__iuzg89cn Frame_display-mobile__iuzg893 Frame_justifyContent-mobile__iuzg8949 Frame_alignItems-mobile__iuzg894x"
-    style="--paddingLeft-mobile__iuzg899i: var(--r95-space-6); --paddingRight-mobile__iuzg899o: var(--r95-space-6); --paddingTop-mobile__iuzg899u: var(--r95-space-2); --paddingBottom-mobile__iuzg898u: var(--r95-space-2); --boxShadow__iuzg89cm: var(--r95-shadow-in); --display-mobile__iuzg890: flex; --justifyContent-mobile__iuzg8946: center; --alignItems-mobile__iuzg894u: center;"
+    class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
   >
-    <div
-      class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
-    >
-      10:00
-    </div>
+    10:00
   </div>
 </div>
 `;
@@ -95,14 +90,17 @@ exports[`<TaskBar /> > Snapshots > should match snapshot 1`] = `
       style="--width-mobile__iuzg895c: 100%; --marginLeft-mobile__iuzg897o: var(--r95-space-2); --paddingLeft-mobile__iuzg899i: var(--r95-space-0); --display-mobile__iuzg890: flex;"
     />
     <div
-      class="Frame_paddingLeft-mobile__iuzg899l Frame_paddingRight-mobile__iuzg899r Frame_paddingTop-mobile__iuzg899x Frame_paddingBottom-mobile__iuzg898x Frame_boxShadow__iuzg89cn Frame_display-mobile__iuzg893 Frame_justifyContent-mobile__iuzg8949 Frame_alignItems-mobile__iuzg894x"
-      style="--paddingLeft-mobile__iuzg899i: var(--r95-space-6); --paddingRight-mobile__iuzg899o: var(--r95-space-6); --paddingTop-mobile__iuzg899u: var(--r95-space-2); --paddingBottom-mobile__iuzg898u: var(--r95-space-2); --boxShadow__iuzg89cm: var(--r95-shadow-in); --display-mobile__iuzg890: flex; --justifyContent-mobile__iuzg8946: center; --alignItems-mobile__iuzg894u: center;"
+      class="Frame_paddingLeft-mobile__iuzg899l Frame_paddingRight-mobile__iuzg899r Frame_paddingTop-mobile__iuzg899x Frame_paddingBottom-mobile__iuzg898x Frame_boxShadow__iuzg89cn Frame_display-mobile__iuzg893 Frame_justifyContent-mobile__iuzg8949 Frame_alignItems-mobile__iuzg894x Frame_gap-mobile__iuzg8959"
+      style="--paddingLeft-mobile__iuzg899i: var(--r95-space-6); --paddingRight-mobile__iuzg899o: var(--r95-space-6); --paddingTop-mobile__iuzg899u: var(--r95-space-2); --paddingBottom-mobile__iuzg898u: var(--r95-space-2); --boxShadow__iuzg89cm: var(--r95-shadow-in); --display-mobile__iuzg890: flex; --justifyContent-mobile__iuzg8946: center; --alignItems-mobile__iuzg894u: center; --gap-mobile__iuzg8956: var(--r95-space-2);"
     >
-      <div
-        class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
-      >
-        10:00
-      </div>
+      <span />
+      <span>
+        <div
+          class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
+        >
+          10:00
+        </div>
+      </span>
     </div>
   </div>
 </div>
@@ -131,14 +129,17 @@ exports[`<TaskBar /> > Snapshots > should match snapshot with list prop 1`] = `
       style="--width-mobile__iuzg895c: 100%; --marginLeft-mobile__iuzg897o: var(--r95-space-2); --paddingLeft-mobile__iuzg899i: var(--r95-space-0); --display-mobile__iuzg890: flex;"
     />
     <div
-      class="Frame_paddingLeft-mobile__iuzg899l Frame_paddingRight-mobile__iuzg899r Frame_paddingTop-mobile__iuzg899x Frame_paddingBottom-mobile__iuzg898x Frame_boxShadow__iuzg89cn Frame_display-mobile__iuzg893 Frame_justifyContent-mobile__iuzg8949 Frame_alignItems-mobile__iuzg894x"
-      style="--paddingLeft-mobile__iuzg899i: var(--r95-space-6); --paddingRight-mobile__iuzg899o: var(--r95-space-6); --paddingTop-mobile__iuzg899u: var(--r95-space-2); --paddingBottom-mobile__iuzg898u: var(--r95-space-2); --boxShadow__iuzg89cm: var(--r95-shadow-in); --display-mobile__iuzg890: flex; --justifyContent-mobile__iuzg8946: center; --alignItems-mobile__iuzg894u: center;"
+      class="Frame_paddingLeft-mobile__iuzg899l Frame_paddingRight-mobile__iuzg899r Frame_paddingTop-mobile__iuzg899x Frame_paddingBottom-mobile__iuzg898x Frame_boxShadow__iuzg89cn Frame_display-mobile__iuzg893 Frame_justifyContent-mobile__iuzg8949 Frame_alignItems-mobile__iuzg894x Frame_gap-mobile__iuzg8959"
+      style="--paddingLeft-mobile__iuzg899i: var(--r95-space-6); --paddingRight-mobile__iuzg899o: var(--r95-space-6); --paddingTop-mobile__iuzg899u: var(--r95-space-2); --paddingBottom-mobile__iuzg898u: var(--r95-space-2); --boxShadow__iuzg89cm: var(--r95-shadow-in); --display-mobile__iuzg890: flex; --justifyContent-mobile__iuzg8946: center; --alignItems-mobile__iuzg894u: center; --gap-mobile__iuzg8956: var(--r95-space-2);"
     >
-      <div
-        class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
-      >
-        10:00
-      </div>
+      <span />
+      <span>
+        <div
+          class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
+        >
+          10:00
+        </div>
+      </span>
     </div>
   </div>
 </div>
@@ -188,14 +189,17 @@ exports[`<TaskBar /> > Snapshots > should match snapshot with list prop 2`] = `
       style="--width-mobile__iuzg895c: 100%; --marginLeft-mobile__iuzg897o: var(--r95-space-2); --paddingLeft-mobile__iuzg899i: var(--r95-space-0); --display-mobile__iuzg890: flex;"
     />
     <div
-      class="Frame_paddingLeft-mobile__iuzg899l Frame_paddingRight-mobile__iuzg899r Frame_paddingTop-mobile__iuzg899x Frame_paddingBottom-mobile__iuzg898x Frame_boxShadow__iuzg89cn Frame_display-mobile__iuzg893 Frame_justifyContent-mobile__iuzg8949 Frame_alignItems-mobile__iuzg894x"
-      style="--paddingLeft-mobile__iuzg899i: var(--r95-space-6); --paddingRight-mobile__iuzg899o: var(--r95-space-6); --paddingTop-mobile__iuzg899u: var(--r95-space-2); --paddingBottom-mobile__iuzg898u: var(--r95-space-2); --boxShadow__iuzg89cm: var(--r95-shadow-in); --display-mobile__iuzg890: flex; --justifyContent-mobile__iuzg8946: center; --alignItems-mobile__iuzg894u: center;"
+      class="Frame_paddingLeft-mobile__iuzg899l Frame_paddingRight-mobile__iuzg899r Frame_paddingTop-mobile__iuzg899x Frame_paddingBottom-mobile__iuzg898x Frame_boxShadow__iuzg89cn Frame_display-mobile__iuzg893 Frame_justifyContent-mobile__iuzg8949 Frame_alignItems-mobile__iuzg894x Frame_gap-mobile__iuzg8959"
+      style="--paddingLeft-mobile__iuzg899i: var(--r95-space-6); --paddingRight-mobile__iuzg899o: var(--r95-space-6); --paddingTop-mobile__iuzg899u: var(--r95-space-2); --paddingBottom-mobile__iuzg898u: var(--r95-space-2); --boxShadow__iuzg89cm: var(--r95-shadow-in); --display-mobile__iuzg890: flex; --justifyContent-mobile__iuzg8946: center; --alignItems-mobile__iuzg894u: center; --gap-mobile__iuzg8956: var(--r95-space-2);"
     >
-      <div
-        class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
-      >
-        10:00
-      </div>
+      <span />
+      <span>
+        <div
+          class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
+        >
+          10:00
+        </div>
+      </span>
     </div>
   </div>
 </div>
@@ -242,14 +246,17 @@ exports[`<TaskBar /> > Snapshots > should match snapshot with one Modal 1`] = `
       style="--width-mobile__iuzg895c: 100%; --marginLeft-mobile__iuzg897o: var(--r95-space-2); --paddingLeft-mobile__iuzg899i: var(--r95-space-0); --display-mobile__iuzg890: flex;"
     />
     <div
-      class="Frame_paddingLeft-mobile__iuzg899l Frame_paddingRight-mobile__iuzg899r Frame_paddingTop-mobile__iuzg899x Frame_paddingBottom-mobile__iuzg898x Frame_boxShadow__iuzg89cn Frame_display-mobile__iuzg893 Frame_justifyContent-mobile__iuzg8949 Frame_alignItems-mobile__iuzg894x"
-      style="--paddingLeft-mobile__iuzg899i: var(--r95-space-6); --paddingRight-mobile__iuzg899o: var(--r95-space-6); --paddingTop-mobile__iuzg899u: var(--r95-space-2); --paddingBottom-mobile__iuzg898u: var(--r95-space-2); --boxShadow__iuzg89cm: var(--r95-shadow-in); --display-mobile__iuzg890: flex; --justifyContent-mobile__iuzg8946: center; --alignItems-mobile__iuzg894u: center;"
+      class="Frame_paddingLeft-mobile__iuzg899l Frame_paddingRight-mobile__iuzg899r Frame_paddingTop-mobile__iuzg899x Frame_paddingBottom-mobile__iuzg898x Frame_boxShadow__iuzg89cn Frame_display-mobile__iuzg893 Frame_justifyContent-mobile__iuzg8949 Frame_alignItems-mobile__iuzg894x Frame_gap-mobile__iuzg8959"
+      style="--paddingLeft-mobile__iuzg899i: var(--r95-space-6); --paddingRight-mobile__iuzg899o: var(--r95-space-6); --paddingTop-mobile__iuzg899u: var(--r95-space-2); --paddingBottom-mobile__iuzg898u: var(--r95-space-2); --boxShadow__iuzg89cm: var(--r95-shadow-in); --display-mobile__iuzg890: flex; --justifyContent-mobile__iuzg8946: center; --alignItems-mobile__iuzg894u: center; --gap-mobile__iuzg8956: var(--r95-space-2);"
     >
-      <div
-        class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
-      >
-        10:00
-      </div>
+      <span />
+      <span>
+        <div
+          class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
+        >
+          10:00
+        </div>
+      </span>
     </div>
   </div>
 </div>
@@ -314,14 +321,17 @@ exports[`<TaskBar /> > Snapshots > should match snapshot with two Modals 1`] = `
       style="--width-mobile__iuzg895c: 100%; --marginLeft-mobile__iuzg897o: var(--r95-space-2); --paddingLeft-mobile__iuzg899i: var(--r95-space-0); --display-mobile__iuzg890: flex;"
     />
     <div
-      class="Frame_paddingLeft-mobile__iuzg899l Frame_paddingRight-mobile__iuzg899r Frame_paddingTop-mobile__iuzg899x Frame_paddingBottom-mobile__iuzg898x Frame_boxShadow__iuzg89cn Frame_display-mobile__iuzg893 Frame_justifyContent-mobile__iuzg8949 Frame_alignItems-mobile__iuzg894x"
-      style="--paddingLeft-mobile__iuzg899i: var(--r95-space-6); --paddingRight-mobile__iuzg899o: var(--r95-space-6); --paddingTop-mobile__iuzg899u: var(--r95-space-2); --paddingBottom-mobile__iuzg898u: var(--r95-space-2); --boxShadow__iuzg89cm: var(--r95-shadow-in); --display-mobile__iuzg890: flex; --justifyContent-mobile__iuzg8946: center; --alignItems-mobile__iuzg894u: center;"
+      class="Frame_paddingLeft-mobile__iuzg899l Frame_paddingRight-mobile__iuzg899r Frame_paddingTop-mobile__iuzg899x Frame_paddingBottom-mobile__iuzg898x Frame_boxShadow__iuzg89cn Frame_display-mobile__iuzg893 Frame_justifyContent-mobile__iuzg8949 Frame_alignItems-mobile__iuzg894x Frame_gap-mobile__iuzg8959"
+      style="--paddingLeft-mobile__iuzg899i: var(--r95-space-6); --paddingRight-mobile__iuzg899o: var(--r95-space-6); --paddingTop-mobile__iuzg899u: var(--r95-space-2); --paddingBottom-mobile__iuzg898u: var(--r95-space-2); --boxShadow__iuzg89cm: var(--r95-shadow-in); --display-mobile__iuzg890: flex; --justifyContent-mobile__iuzg8946: center; --alignItems-mobile__iuzg894u: center; --gap-mobile__iuzg8956: var(--r95-space-2);"
     >
-      <div
-        class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
-      >
-        10:00
-      </div>
+      <span />
+      <span>
+        <div
+          class="Tooltip_wrapper__f5whxn1 TaskBar_tooltip__1ct83mo1"
+        >
+          10:00
+        </div>
+      </span>
     </div>
   </div>
 </div>
