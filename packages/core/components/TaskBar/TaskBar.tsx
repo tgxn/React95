@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 import { Frame, FrameProps } from '../Frame/Frame';
 import { List } from '../List/List';
 
-import { Clock } from './Clock';
+import { SystemTray } from './SystemTray';
 import { WindowButton } from './WindowButton';
 import { Logo } from '@react95/icons';
 import { truncate } from './TaskBar.css';
@@ -12,10 +12,14 @@ import { ModalEvents, ModalWindow, useModal } from '../shared/events';
 
 export type TaskBarProps = {
   list?: ReactElement<typeof List>;
+  trayIcons?: React.ReactNode;
+  showClock?: boolean;
+  clockAmPm?: boolean;
+  clockOnClick?: () => void;
 } & FrameProps<'div'>;
 
 export const TaskBar = forwardRef<HTMLDivElement, TaskBarProps>(
-  ({ list, className }, ref) => {
+  ({ list, trayIcons, showClock, clockAmPm, clockOnClick, className }, ref) => {
     const [showList, toggleShowList] = useState(false);
     const [activeStart, toggleActiveStart] = useState(false);
     const [modalWindows, setModalWindows] = React.useState<ModalWindow[]>([]);
@@ -137,7 +141,12 @@ export const TaskBar = forwardRef<HTMLDivElement, TaskBarProps>(
           )}
         </Frame>
 
-        <Clock />
+        <SystemTray
+          trayIcons={trayIcons}
+          showClock={showClock}
+          clockAmPm={clockAmPm}
+          clockOnClick={clockOnClick}
+        />
       </Frame>
     );
   },
