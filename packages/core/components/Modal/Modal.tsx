@@ -27,6 +27,22 @@ import cn from 'classnames';
 import { useOnClickOutside } from 'usehooks-ts';
 import { ModalEvents, useModal } from '../shared/events';
 
+
+// track zindex order for modals in a simple local module-scoped map
+const modalZOrder: Record<string, number> = {};
+let zCounter = 1000; // start zindex at 1000 so it sits above most stuff
+
+function bringToFront(id: string) {
+  // set this modal to the highest zindex
+  zCounter += 1;
+  modalZOrder[id] = zCounter;
+}
+
+function removeFromZOrder(id: string) {
+  // remove modal from zindex map
+  delete modalZOrder[id];
+}
+
 export type ModalButtons = {
   value: string;
   onClick(event: MouseEvent): void;
@@ -121,6 +137,11 @@ const ModalRenderer = (
   const [isModalMinimized, setIsModalMinimized] = useState(false);
   const { add, remove, focus, subscribe } = useModal();
 
+
+  // track zindex for this modal
+  const [, forceUpdate] = useState(0);
+
+
   const draggableRef = useRef<HTMLDivElement>(null);
   useDraggable(draggableRef, {
     ...dragOptions,
@@ -138,6 +159,10 @@ const ModalRenderer = (
       ModalEvents.ModalVisibilityChanged,
       ({ id: activeId }) => {
         setIsActive(activeId === id);
+         if (activeId === id) {
+          bringToFront(id);
+          forceUpdate(n => n + 1);
+        }
       },
     );
 
@@ -150,6 +175,11 @@ const ModalRenderer = (
         hasButton,
       });
       focus(id);
+
+      // add to zorder and bring to front on mount
+      bringToFront(id);
+      forceUpdate(n => n + 1);
+
     } else {
       setIsModalMinimized(true);
     }
@@ -157,6 +187,7 @@ const ModalRenderer = (
     return () => {
       remove(id);
       unsubscribeVisibility();
+      removeFromZOrder(id);
     };
   }, [id, icon, title, hasButton, providedId, add, remove, focus, subscribe]);
 
@@ -199,9 +230,11 @@ const ModalRenderer = (
       role="dialog"
       aria-hidden={isModalMinimized}
       ref={draggableRef}
-    
+      style={{ zIndex: modalZOrder[id] || 1000, ...(rest.style || {}) }}
       onMouseDown={() => {
         focus(id);
+          bringToFront(id);
+        forceUpdate(n => n + 1);
       }}
     >
       <TitleBar
