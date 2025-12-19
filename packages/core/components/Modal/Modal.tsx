@@ -27,19 +27,18 @@ import cn from 'classnames';
 import { useOnClickOutside } from 'usehooks-ts';
 import { ModalEvents, useModal } from '../shared/events';
 
-
 // track zindex order for modals in a simple local module-scoped map
 const modalZOrder: Record<string, number> = {};
 let zCounter = 1000; // start zindex at 1000 so it sits above most stuff
 
+// set this modal to the highest zindex
 function bringToFront(id: string) {
-  // set this modal to the highest zindex
   zCounter += 1;
   modalZOrder[id] = zCounter;
 }
 
+// remove modal from zindex map
 function removeFromZOrder(id: string) {
-  // remove modal from zindex map
   delete modalZOrder[id];
 }
 
@@ -67,11 +66,12 @@ type TitleBarOptions =
 
 export type ModalProps = {
   id?: string;
+  // `defaultClosed` will keep the modal minimized/hidden on first mount
+  defaultClosed?: boolean;
   buttons?: Array<ModalButtons>;
   menu?: Array<ModalMenu>;
   dragOptions?: Omit<DragOptions, 'handle'>;
   hasWindowButton?: boolean;
-  noInitalAdd?: boolean;
   buttonsAlignment?: FrameProps<'div'>['justifyContent'];
   titleBarOptions?:
     | ReactElement<TitleBarOptions>
@@ -124,8 +124,8 @@ const ModalRenderer = (
     menu = [],
     title,
     dragOptions,
-    noInitalAdd,
     titleBarOptions,
+    defaultClosed = false,
     className,
     ...rest
   }: ModalProps,
@@ -134,13 +134,14 @@ const ModalRenderer = (
   const [id] = useState<string>(providedId || nanoid());
   const [menuOpened, setMenuOpened] = useState('');
   const [isActive, setIsActive] = useState(false);
-  const [isModalMinimized, setIsModalMinimized] = useState(false);
-  const { add, remove, focus, subscribe } = useModal();
-
+  // `isModalMinimized` starts from `defaultMinimized` so we don't flash on mount
+  const [isModalMinimized, setIsModalMinimized] = useState<boolean>(
+    !!defaultClosed,
+  );
+  const { add, remove, focus, subscribe, minimize } = useModal();
 
   // track zindex for this modal
   const [, forceUpdate] = useState(0);
-
 
   const draggableRef = useRef<HTMLDivElement>(null);
   useDraggable(draggableRef, {
@@ -152,44 +153,59 @@ const ModalRenderer = (
   useOnClickOutside(menuRef, () => {
     setMenuOpened('');
   });
-
+  
   useEffect(() => {
-
     const unsubscribeVisibility = subscribe(
       ModalEvents.ModalVisibilityChanged,
       ({ id: activeId }) => {
         setIsActive(activeId === id);
-         if (activeId === id) {
+        if (activeId === id) {
           bringToFront(id);
           forceUpdate(n => n + 1);
         }
       },
     );
 
-    // indicating we want to begin hidden at start
-    if(!noInitalAdd) {
-      add({
-        id,
-        icon,
-        title: title || '',
-        hasButton,
-      });
-      focus(id);
 
-      // add to zorder and bring to front on mount
-      bringToFront(id);
-      forceUpdate(n => n + 1);
+        // if `defaultMinimized` is set, keep it minimized and don't steal focus
+        if (defaultClosed) {
+          minimize(id);
+        } else {
 
-    } else {
-      setIsModalMinimized(true);
-    }
-
+          add({
+            id,
+            icon,
+            title: title || '',
+            hasButton,
+          });
+          
+          focus(id);
+          // add to zorder and bring to front on mount
+          bringToFront(id);
+          forceUpdate(n => n + 1);
+        }
+ 
     return () => {
-      remove(id);
+      
+        remove(id);
+        removeFromZOrder(id);
+      
       unsubscribeVisibility();
-      removeFromZOrder(id);
+
     };
-  }, [id, icon, title, hasButton, providedId, add, remove, focus, subscribe]);
+  }, [
+    id,
+    icon,
+    title,
+    hasButton,
+    providedId,
+    add,
+    remove,
+    focus,
+    subscribe,
+    minimize,
+    defaultClosed,
+  ]);
 
   useEffect(() => {
     const unsubscribeMinimize = subscribe(
@@ -233,7 +249,7 @@ const ModalRenderer = (
       style={{ zIndex: modalZOrder[id] || 1000, ...(rest.style || {}) }}
       onMouseDown={() => {
         focus(id);
-          bringToFront(id);
+        bringToFront(id);
         forceUpdate(n => n + 1);
       }}
     >

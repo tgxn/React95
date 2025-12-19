@@ -8,6 +8,7 @@ import {
   TaskBar,
   Frame,
   useModal,
+  ModalEvents,
 } from '../components';
 import { Modal } from '../components/Modal/Modal';
 
@@ -177,6 +178,69 @@ export const Multiple = () => {
     minimize(MODAL_IDS.third);
     remove(MODAL_IDS.third);
   };
+
+  const {  subscribe, } = useModal();
+    const eventLogRef = React.useRef<HTMLDivElement>(null);
+    const eventCountRef = React.useRef(0);
+
+    // Helper function to add events to the display without causing re-renders
+    const addEventToLog = React.useCallback((eventText: string) => {
+      if (eventLogRef.current) {
+        const eventItem = document.createElement('div');
+        eventItem.style.cssText = `
+          font-size: 12px;
+          padding: 2px 0;
+          border-bottom: 1px solid #eee;
+          font-family: monospace;
+        `;
+        eventCountRef.current += 1;
+        eventItem.textContent = `${eventCountRef.current}. ${eventText}`;
+        eventLogRef.current.appendChild(eventItem);
+
+        // Auto-scroll to bottom
+        eventLogRef.current.scrollTop = eventLogRef.current.scrollHeight;
+
+        // Keep only last 20 events to prevent memory issues
+        if (eventLogRef.current.children.length > 20) {
+          const firstChild = eventLogRef.current.firstChild;
+          if (firstChild) {
+            eventLogRef.current.removeChild(firstChild);
+          }
+        }
+      }
+    }, []);
+
+    const clearEventLog = React.useCallback(() => {
+      if (eventLogRef.current) {
+        eventLogRef.current.innerHTML = '';
+        eventCountRef.current = 0;
+      }
+    }, []);
+
+      React.useEffect(() => {
+        const unsubscribes = [
+          subscribe(ModalEvents.AddModal, ({ id, title }) => {
+            addEventToLog(`➕ Added: ${title} (${id})`);
+          }),
+          subscribe(ModalEvents.RemoveModal, ({ id }) => {
+            addEventToLog(`❌ Removed: ${id}`);
+          }),
+          subscribe(ModalEvents.MinimizeModal, ({ id }) => {
+            addEventToLog(`➖ Minimized: ${id}`);
+          }),
+          subscribe(ModalEvents.RestoreModal, ({ id }) => {
+            addEventToLog(`⬆️ Restored: ${id}`);
+          }),
+          subscribe(ModalEvents.ModalVisibilityChanged, ({ id }) => {
+            addEventToLog(`👁️ Focus changed: ${id}`);
+          }),
+        ];
+  
+        return () => {
+          unsubscribes.forEach(unsubscribe => unsubscribe());
+        };
+      }, [subscribe, addEventToLog]);
+  
   
   return (
     <Frame>
@@ -204,7 +268,8 @@ export const Multiple = () => {
       </Frame>
 
       <Modal
-        id="first-modal"
+        key={MODAL_IDS.first}
+        id={MODAL_IDS.first}
         icon={<Mmsys113 variant="32x32_4" />}
         title="First Modal"
         dragOptions={{
@@ -260,12 +325,12 @@ export const Multiple = () => {
         </Modal.Content>
       </Modal>
 
-
       <Modal
-        id="third-modal"
+        key={MODAL_IDS.third}
+        defaultClosed={true}
+        id={MODAL_IDS.third}
         icon={<Mshtml32534 variant="32x32_4" />}
         title="Third Modal"
-        noInitalAdd={true}
         dragOptions={{
           defaultPosition: {
             x: 300,
@@ -311,9 +376,9 @@ export const Multiple = () => {
         </Modal.Content>
       </Modal>
 
-
       <Modal
-        id="second-modal"
+        key={MODAL_IDS.second}
+        id={MODAL_IDS.second}
         icon={<Mshtml32534 variant="32x32_4" />}
         title="Second Modal"
         dragOptions={{
@@ -360,6 +425,30 @@ export const Multiple = () => {
           </Frame>
         </Modal.Content>
       </Modal>
+
+      <Frame
+        display="flex"
+        flexDirection="column"
+        width="320px"
+        height="200px"
+        boxShadow="$out"
+        bgColor="$material"
+        p="$8"
+      >
+        <Frame as="h4" fontSize="14px" m="$0" mb="$8">
+          Event Log
+        </Frame>
+        <Frame
+          boxShadow="$in"
+          bgColor="white"
+          p="$8"
+          ref={eventLogRef}
+          overflow="auto"
+          backgroundColor="#fafafa"
+          flexGrow={1}
+        />
+      </Frame>
+            
     </Frame>
   );
 };
