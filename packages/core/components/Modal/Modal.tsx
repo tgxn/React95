@@ -55,6 +55,7 @@ export type ModalProps = {
   menu?: Array<ModalMenu>;
   dragOptions?: Omit<DragOptions, 'handle'>;
   hasWindowButton?: boolean;
+  noInitalAdd?: boolean;
   buttonsAlignment?: FrameProps<'div'>['justifyContent'];
   titleBarOptions?:
     | ReactElement<TitleBarOptions>
@@ -107,6 +108,7 @@ const ModalRenderer = (
     menu = [],
     title,
     dragOptions,
+    noInitalAdd,
     titleBarOptions,
     className,
     ...rest
@@ -131,12 +133,6 @@ const ModalRenderer = (
   });
 
   useEffect(() => {
-    add({
-      icon,
-      title: title || '',
-      id,
-      hasButton,
-    });
 
     const unsubscribeVisibility = subscribe(
       ModalEvents.ModalVisibilityChanged,
@@ -145,7 +141,18 @@ const ModalRenderer = (
       },
     );
 
-    focus(id);
+    // indicating we want to begin hidden at start
+    if(!noInitalAdd) {
+      add({
+        id,
+        icon,
+        title: title || '',
+        hasButton,
+      });
+      focus(id);
+    } else {
+      setIsModalMinimized(true);
+    }
 
     return () => {
       remove(id);

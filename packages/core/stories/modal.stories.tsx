@@ -106,19 +106,14 @@ export const Simple = {
 const MODAL_IDS = {
   first: 'first-modal',
   second: 'second-modal',
+  third: 'third-modal',
 };
 
 export const Multiple = () => {
   const { remove, minimize, restore, focus, add } = useModal();
 
-  const handleCloseFirstModal = () => {
-    minimize(MODAL_IDS.first);
-    remove(MODAL_IDS.first);
-  };
-  const handleCloseSecondModal = () => {
-    minimize(MODAL_IDS.second);
-    remove(MODAL_IDS.second);
-  };
+  const handleButtonClick = (e: React.MouseEvent<HTMLLIElement>) =>
+    alert(e.currentTarget.value);
 
   // Handlers for first modal
   const handleMinimizeFirst = () => {
@@ -136,6 +131,10 @@ export const Multiple = () => {
     focus(MODAL_IDS.first);
   };
   const handleFocusFirst = () => focus(MODAL_IDS.first);
+  const handleCloseFirstModal = () => {
+    minimize(MODAL_IDS.first);
+    remove(MODAL_IDS.first);
+  };
 
   // Handlers for second modal
   const handleMinimizeSecond = () => {
@@ -153,10 +152,32 @@ export const Multiple = () => {
     focus(MODAL_IDS.second);
   };
   const handleFocusSecond = () => focus(MODAL_IDS.second);
+  const handleCloseSecondModal = () => {
+    minimize(MODAL_IDS.second);
+    remove(MODAL_IDS.second);
+  };
 
-  const handleButtonClick = (e: React.MouseEvent<HTMLLIElement>) =>
-    alert(e.currentTarget.value);
-
+  // Handlers for third modal
+  const handleMinimizeThird = () => {
+    minimize(MODAL_IDS.third);
+    focus('no-id');
+  };
+  const handleRestoreThirdModal = () => {
+    add({
+      id: MODAL_IDS.third,
+      title: 'Third Modal',
+      icon: <Mshtml32534 variant="32x32_4" />,
+      hasButton: true,
+    });
+    restore(MODAL_IDS.third);
+    focus(MODAL_IDS.third);
+  };
+  const handleFocusThird = () => focus(MODAL_IDS.third);
+  const handleCloseThirdModal = () => {
+    minimize(MODAL_IDS.third);
+    remove(MODAL_IDS.third);
+  };
+  
   return (
     <Frame>
       <TaskBar />
@@ -173,6 +194,12 @@ export const Multiple = () => {
           <Button onClick={handleRestoreSecondModal}>Restore Second</Button>
           <Button onClick={handleCloseSecondModal}>Close Second</Button>
           <Button onClick={handleFocusSecond}>Focus Second</Button>
+        </Frame>
+        <Frame display="flex" gap="8px" flexWrap="wrap">
+          <Button onClick={handleMinimizeThird}>Minimize Third</Button>
+          <Button onClick={handleRestoreThirdModal}>Restore Third</Button>
+          <Button onClick={handleCloseThirdModal}>Close Third</Button>
+          <Button onClick={handleFocusThird}>Focus Third</Button>
         </Frame>
       </Frame>
 
@@ -232,6 +259,58 @@ export const Multiple = () => {
           </Frame>
         </Modal.Content>
       </Modal>
+
+
+      <Modal
+        id="third-modal"
+        icon={<Mshtml32534 variant="32x32_4" />}
+        title="Third Modal"
+        noInitalAdd={true}
+        dragOptions={{
+          defaultPosition: {
+            x: 300,
+            y: 250,
+          },
+        }}
+        titleBarOptions={<TitleBar.Close onClick={handleCloseThirdModal} />}
+        buttons={[
+          { value: 'Ok', onClick: handleButtonClick },
+          { value: 'Cancel', onClick: handleButtonClick },
+        ]}
+        menu={[
+          {
+            name: 'File',
+            list: (
+              <List width="200px">
+                <List.Item onClick={handleCloseThirdModal}>Exit</List.Item>
+              </List>
+            ),
+          },
+          {
+            name: 'Edit',
+            list: (
+              <List width="200px">
+                <List.Item>Copy</List.Item>
+              </List>
+            ),
+          },
+        ]}
+      >
+        <Modal.Content width="350px" boxShadow="$in" bgColor="white" p="16px">
+          <Frame as="div" display="flex" flexDirection="column" gap="8px">
+            <h4>Complete Modal Management</h4>
+            <p>Key features demonstrated:</p>
+            <Frame as="ul" marginY="$8">
+              <li>No React state management needed</li>
+              <li>Modals controlled by ID</li>
+              <li>Automatic TaskBar integration</li>
+              <li>Event-driven architecture</li>
+            </Frame>
+            <p>Both modals can be controlled independently using their IDs.</p>
+          </Frame>
+        </Modal.Content>
+      </Modal>
+
 
       <Modal
         id="second-modal"

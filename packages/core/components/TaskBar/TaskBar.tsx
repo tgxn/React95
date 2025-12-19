@@ -22,7 +22,7 @@ export const TaskBar = forwardRef<HTMLDivElement, TaskBarProps>(
   ({ list, trayIcons, showClock, clockAmPm, clockOnClick, className }, ref) => {
     const [showList, toggleShowList] = useState(false);
     const [activeStart, toggleActiveStart] = useState(false);
-    const [modalWindows, setModalWindows] = React.useState<ModalWindow[]>([]);
+    const [modalWindows, setModalWindows] = useState<ModalWindow[]>([]);
     const [activeWindow, setActiveWindow] = useState<string>();
     const { minimize, restore, focus, subscribe } = useModal();
 
@@ -47,8 +47,8 @@ export const TaskBar = forwardRef<HTMLDivElement, TaskBarProps>(
             modal => modal.id !== data.id,
           );
 
+          // handle focussing the last modal if the active one is closed
           const lastModal = filteredModals.at(-1);
-
           if (activeWindow === data.id && lastModal) {
             focus(lastModal.id);
           }
