@@ -305,7 +305,11 @@ const ModalRenderer = (
   );
 };
 
-type ModalComponent = typeof ModalRenderer & {
+type ModalWithStatics = (
+  props: ModalProps & { ref?: Ref<HTMLDivElement | null> },
+) => ReactElement;
+
+type ModalComponent = ModalWithStatics & {
   Content: typeof ModalContent;
   Minimize: typeof ModalMinimize;
 };
