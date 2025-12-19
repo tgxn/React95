@@ -15,7 +15,7 @@ export const modalWrapper = recipe({
   variants: {
     active: {
       true: {
-        zIndex: contract.zIndices.modal,
+        // zIndex: contract.zIndices.modal,
       },
     },
     minimized: {
@@ -43,7 +43,7 @@ globalStyle(`${buttonWrapper} button`, {
 export const content = style({
   flexGrow: 1,
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   padding: contract.space[6],
   marginBlockStart: contract.space[4],
   marginInlineEnd: contract.space[1],

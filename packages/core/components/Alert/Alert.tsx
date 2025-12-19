@@ -34,12 +34,12 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
     { type = 'error', message, hasSound = false, dragOptions, ...rest },
     ref,
   ) => {
-    if (hasSound) {
-      useEffect(() => {
-        const audio = new Audio(sound);
-        audio.play();
+    useEffect(() => {
+        if (hasSound) {
+          const audio = new Audio(sound);
+          audio.play();
+        }
       }, []);
-    }
 
     return (
       <Modal
