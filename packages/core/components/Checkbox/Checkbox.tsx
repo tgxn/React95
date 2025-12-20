@@ -9,7 +9,7 @@ export type LabelProps = {
 };
 export type CheckboxProps = {
   label?: string;
-  children?: string;
+  children?: string | React.ReactNode;
   style?: CSSProperties;
 } & LabelProps &
   HTMLProps<HTMLInputElement>;
