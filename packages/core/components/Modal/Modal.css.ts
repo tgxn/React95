@@ -99,7 +99,7 @@ export const resizerLeft = style([
   {
     left: '-6px',
     top: 0,
-    bottom: 0,
+    bottom: '12px',
     width: '12px',
     cursor: 'ew-resize',
   },
@@ -109,9 +109,19 @@ export const resizerRight = style([
   {
     right: '-6px',
     top: 0,
-    bottom: 0,
+    bottom: '12px',
     width: '12px',
     cursor: 'ew-resize',
+  },
+]);
+export const resizerBottom = style([
+  resizer,
+  {
+    left: 0,
+    right: 0,
+    bottom: '-6px',
+    height: '12px',
+    cursor: 'ns-resize',
   },
 ]);
 export const resizerBottomRight = style([
