@@ -79,8 +79,9 @@ export const icon = style({});
 globalStyle(`${icon} svg`, {
   marginTop: contract.space[4],
   marginRight: contract.space[4],
+  marginLeft: contract.space[2],
   minWidth: contract.space[2],
-  width: contract.space[20],
-  height: contract.space[20],
+  width: '16px',
+  height: '16px',
   shapeRendering: 'auto',
 });

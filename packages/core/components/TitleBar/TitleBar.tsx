@@ -165,7 +165,7 @@ const TitleBarRenderer = <TAs extends ElementType = 'div'>(
     className={cn(styles.titleBarBackground({ active }), rest.className)}
     ref={ref}
   >
-    {icon && icon}
+    {icon && <div className={styles.icon}>{icon}</div>}
     <div className={styles.title}>{title}</div>
 
     {children}

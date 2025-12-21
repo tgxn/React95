@@ -88,3 +88,11 @@ export const optionImage = style({
   // https://tailwindcss.com/docs/preflight#images-are-constrained
   maxWidth: 'none',
 });
+
+export const icon = style({});
+
+globalStyle(`${icon} svg`, {
+  marginLeft: contract.space[2],
+  width: "16px",
+  height: "16px",
+});
