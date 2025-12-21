@@ -85,3 +85,52 @@ globalStyle(`${menuItem.classNames.base} ul`, {
   left: '0',
   color: contract.colors.materialText,
 });
+
+// resizer handles for simple resizing from left, right, bottom-left and bottom-right
+export const resizer = style({
+  position: 'absolute',
+  zIndex: 20,
+  background: 'transparent',
+  pointerEvents: 'auto',
+});
+
+export const resizerLeft = style([
+  resizer,
+  {
+    left: '-6px',
+    top: 0,
+    bottom: 0,
+    width: '12px',
+    cursor: 'ew-resize',
+  },
+]);
+export const resizerRight = style([
+  resizer,
+  {
+    right: '-6px',
+    top: 0,
+    bottom: 0,
+    width: '12px',
+    cursor: 'ew-resize',
+  },
+]);
+export const resizerBottomRight = style([
+  resizer,
+  {
+    right: '-6px',
+    bottom: '-6px',
+    width: '12px',
+    height: '12px',
+    cursor: 'se-resize',
+  },
+]);
+export const resizerBottomLeft = style([
+  resizer,
+  {
+    left: '-6px',
+    bottom: '-6px',
+    width: '12px',
+    height: '12px',
+    cursor: 'sw-resize',
+  },
+]);
