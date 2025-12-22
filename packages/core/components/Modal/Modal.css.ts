@@ -55,7 +55,7 @@ export const menuWrapper = style({
   listStyle: 'none',
   margin: '0',
   paddingLeft: '0',
-  paddingTop: '1px',
+  paddingTop: '0',
   paddingBottom: '1px',
   borderBottomStyle: 'solid',
   borderWidth: '1px',
@@ -68,12 +68,14 @@ export const menuItem = recipe({
     position: 'relative',
     paddingLeft: '6px',
     paddingRight: '6px',
+    paddingTop: '1px',
+    paddingBottom: '1px',
     userSelect: 'none',
   },
   variants: {
     active: {
       true: {
-        backgroundColor: contract.colors.material,
+        backgroundColor: "#0000a8",
         color: contract.colors.materialTextInvert,
       },
     },
