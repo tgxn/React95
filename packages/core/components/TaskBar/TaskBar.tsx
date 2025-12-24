@@ -115,7 +115,24 @@ export const TaskBar = forwardRef<HTMLDivElement, TaskBarProps>(
         className={className}
       >
         {showList && (
-          <Frame position="absolute" bottom="28px" ref={listRef}>
+          <Frame
+            position="absolute"
+            bottom="28px"
+            ref={listRef}
+            onClick={(e: React.MouseEvent) => {
+              const target = e.target as Element | null;
+              const li = target?.closest('li');
+
+              // if clicked inside a list item that has a nested `ul`, assume it's a parent with a submenu
+              // and don't close the start menu (fixes touch devices opening submenus)
+              if (li && li.querySelector('ul')) {
+                return;
+              }
+
+              toggleActiveStart(false);
+              toggleShowList(false);
+            }}
+          >
             {list}
           </Frame>
         )}
