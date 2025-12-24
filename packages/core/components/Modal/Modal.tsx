@@ -156,7 +156,7 @@ const ModalRenderer = (
   const minWidth = 140;
   const minHeight = 80;
 
-  type ResizeDirection =  'right' | 'bottom-right' | 'bottom';
+  type ResizeDirection = 'right' | 'bottom-right' | 'bottom';
 
   const startResize = (direction: ResizeDirection) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -180,7 +180,7 @@ const ModalRenderer = (
       const dy = mv.clientY - startY;
       let newW = startWidth;
       let newH = startHeight;
-      
+
       if (direction === 'right') {
         newW = Math.max(minWidth, startWidth + dx);
       } else if (direction === 'bottom-right') {
@@ -194,13 +194,15 @@ const ModalRenderer = (
       raf = requestAnimationFrame(() => {
         el.style.width = `${Math.round(newW)}px`;
         el.style.height = `${Math.round(newH)}px`;
-       
       });
     };
 
     const onUp = () => {
       isResizingRef.current = false;
-      document.removeEventListener('mousemove', onMove as unknown as EventListener);
+      document.removeEventListener(
+        'mousemove',
+        onMove as unknown as EventListener,
+      );
       document.removeEventListener('mouseup', onUp as unknown as EventListener);
       if (raf) cancelAnimationFrame(raf);
     };
@@ -213,7 +215,7 @@ const ModalRenderer = (
   useOnClickOutside(menuRef, () => {
     setMenuOpened('');
   });
-  
+
   useEffect(() => {
     const unsubscribeVisibility = subscribe(
       ModalEvents.ModalVisibilityChanged,
@@ -226,32 +228,28 @@ const ModalRenderer = (
       },
     );
 
+    // if `defaultMinimized` is set, keep it minimized and don't steal focus
+    if (defaultClosed) {
+      minimize(id);
+    } else {
+      add({
+        id,
+        icon,
+        title: title || '',
+        hasButton,
+      });
 
-        // if `defaultMinimized` is set, keep it minimized and don't steal focus
-        if (defaultClosed) {
-          minimize(id);
-        } else {
+      focus(id);
+      // add to zorder and bring to front on mount
+      bringToFront(id);
+      forceUpdate(n => n + 1);
+    }
 
-          add({
-            id,
-            icon,
-            title: title || '',
-            hasButton,
-          });
-          
-          focus(id);
-          // add to zorder and bring to front on mount
-          bringToFront(id);
-          forceUpdate(n => n + 1);
-        }
- 
     return () => {
-      
-        remove(id);
-        removeFromZOrder(id);
-      
-      unsubscribeVisibility();
+      remove(id);
+      removeFromZOrder(id);
 
+      unsubscribeVisibility();
     };
   }, [
     id,
@@ -300,7 +298,7 @@ const ModalRenderer = (
     <Frame
       {...rest}
       className={cn(
-        styles.modalWrapper({ active: isActive, minimized: isModalMinimized }),
+        styles.modalWrapper({ minimized: isModalMinimized }),
         className,
       )}
       role="dialog"

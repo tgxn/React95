@@ -8,16 +8,11 @@ export const modalWrapper = recipe({
     flexDirection: 'column',
     position: 'fixed',
     padding: contract.space[2],
-    top: '50px',
+    // top: '50px',
     backgroundColor: contract.colors.material,
     boxShadow: contract.shadows.out,
   },
   variants: {
-    active: {
-      true: {
-        // zIndex: contract.zIndices.modal,
-      },
-    },
     minimized: {
       true: {
         display: 'none',
@@ -75,7 +70,7 @@ export const menuItem = recipe({
   variants: {
     active: {
       true: {
-        backgroundColor: "#0000a8",
+        backgroundColor: contract.colors.headerBackground,
         color: contract.colors.materialTextInvert,
       },
     },
