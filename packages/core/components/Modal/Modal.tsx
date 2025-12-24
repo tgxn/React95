@@ -73,6 +73,7 @@ export type ModalProps = {
   dragOptions?: Omit<DragOptions, 'handle'>;
   hasWindowButton?: boolean;
   buttonsAlignment?: FrameProps<'div'>['justifyContent'];
+  isResizeable?: boolean;
   titleBarOptions?:
     | ReactElement<TitleBarOptions>
     | ReactElement<TitleBarOptions>[];
@@ -126,6 +127,7 @@ const ModalRenderer = (
     dragOptions,
     titleBarOptions,
     defaultClosed = false,
+    isResizeable = false,
     className,
     ...rest
   }: ModalProps,
@@ -148,6 +150,72 @@ const ModalRenderer = (
     ...dragOptions,
     handle: '.draggable',
   });
+
+  // resizing support
+  const isResizingRef = useRef(false);
+  const minWidth = 140;
+  const minHeight = 80;
+
+  type ResizeDirection = 'left' | 'right' | 'bottom-right' | 'bottom-left';
+
+  const startResize = (direction: ResizeDirection) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const el = draggableRef.current;
+    if (!el) return;
+    isResizingRef.current = true;
+
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const rect = el.getBoundingClientRect();
+    const startWidth = rect.width;
+    const startHeight = rect.height;
+    const startLeft = rect.left;
+
+    let raf = 0;
+
+    const onMove = (mv: MouseEvent) => {
+      const dx = mv.clientX - startX;
+      const dy = mv.clientY - startY;
+      let newW = startWidth;
+      let newH = startHeight;
+      let newLeft = startLeft;
+
+      if (direction === 'right') {
+        newW = Math.max(minWidth, startWidth + dx);
+      } else if (direction === 'left') {
+        newW = Math.max(minWidth, startWidth - dx);
+        newLeft = startLeft + dx;
+      } else if (direction === 'bottom-right') {
+        newW = Math.max(minWidth, startWidth + dx);
+        newH = Math.max(minHeight, startHeight + dy);
+      } else if (direction === 'bottom-left') {
+        newW = Math.max(minWidth, startWidth - dx);
+        newLeft = startLeft + dx;
+        newH = Math.max(minHeight, startHeight + dy);
+      }
+
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.width = `${Math.round(newW)}px`;
+        el.style.height = `${Math.round(newH)}px`;
+        if (direction === 'left' || direction === 'bottom-left') {
+          el.style.left = `${Math.round(newLeft)}px`;
+        }
+      });
+    };
+
+    const onUp = () => {
+      isResizingRef.current = false;
+      document.removeEventListener('mousemove', onMove as unknown as EventListener);
+      document.removeEventListener('mouseup', onUp as unknown as EventListener);
+      if (raf) cancelAnimationFrame(raf);
+    };
+
+    document.addEventListener('mousemove', onMove as unknown as EventListener);
+    document.addEventListener('mouseup', onUp as unknown as EventListener);
+  };
 
   const menuRef = useRef<HTMLUListElement>(null);
   useOnClickOutside(menuRef, () => {
@@ -300,6 +368,31 @@ const ModalRenderer = (
             </Button>
           ))}
         </Frame>
+      )}
+
+      {isResizeable && (
+        <>
+          <div
+            className={styles.resizerLeft}
+            onMouseDown={startResize('left')}
+            aria-hidden
+          />
+          <div
+            className={styles.resizerRight}
+            onMouseDown={startResize('right')}
+            aria-hidden
+          />
+          <div
+            className={styles.resizerBottomLeft}
+            onMouseDown={startResize('bottom-left')}
+            aria-hidden
+          />
+          <div
+            className={styles.resizerBottomRight}
+            onMouseDown={startResize('bottom-right')}
+            aria-hidden
+          />
+        </>
       )}
     </Frame>
   );
