@@ -115,15 +115,7 @@ export const TaskBar = forwardRef<HTMLDivElement, TaskBarProps>(
         className={className}
       >
         {showList && (
-          <Frame
-            position="absolute"
-            bottom="28px"
-            ref={listRef}
-            onClick={() => {
-              toggleActiveStart(false);
-              toggleShowList(false);
-            }}
-          >
+          <Frame position="absolute" bottom="28px" ref={listRef}>
             {list}
           </Frame>
         )}
