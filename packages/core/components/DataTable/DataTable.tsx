@@ -8,6 +8,7 @@ import {
   tableHeaderCell,
   tableRow,
   tableCell,
+  tableBody,
 } from './DataTable.css';
 
 export interface DataTableColumn {
@@ -41,7 +42,7 @@ const DataTableRenderer = forwardRef<HTMLTableElement, DataTableProps>(
           ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody className={tableBody}>
         {data.map((row, rowIndex) => (
           <tr key={rowIndex} className={tableRow}>
             {columns.map(column => (

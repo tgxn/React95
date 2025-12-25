@@ -18,6 +18,11 @@ export const tableHeader = style({
   backgroundColor: contract.colors.inputBackground,
 });
 
+export const tableBody = style({
+  // backgroundColor: contract.colors.inputBackground,
+  padding: '1px',
+});
+
 export const tableHeaderCell = style({
   padding: contract.space[4],
   paddingLeft: contract.space[8],
