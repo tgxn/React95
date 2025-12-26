@@ -2,14 +2,14 @@ import { style } from '@vanilla-extract/css';
 import { contract } from '../themes/contract.css';
 
 export const datatable = style({
-  width: '100%',
-  borderCollapse: 'separate',
+  tableLayout: 'fixed',
   borderSpacing: '0',
   backgroundColor: contract.colors.inputBackground,
   color: contract.colors.materialText,
-  boxShadow: contract.shadows.in,
-  border: `1px solid ${contract.colors.borderDark}`,
-  padding: '2px',
+  // boxShadow: contract.shadows.in,
+  // border: `1px solid ${contract.colors.borderDark}`,
+  padding: 0,
+  margin: '1px',
   // margin: '2px',
   fontSize: 12,
 });
@@ -25,18 +25,25 @@ export const tableBody = style({
 
 export const tableHeaderCell = style({
   padding: contract.space[4],
-  paddingLeft: contract.space[8],
-  paddingRight: contract.space[8],
+
+  paddingLeft: contract.space[6],
+  paddingRight: contract.space[6],
+
   textAlign: 'left',
   fontWeight: 'bold',
   lineHeight: 1,
+
   backgroundColor: contract.colors.material,
   color: contract.colors.materialText,
 
   border: '1px solid ' + contract.colors.borderDark,
+  borderBottom: 0,
+
   boxShadow: `inset 1px 1px 0px 1px ${contract.colors.borderLightest},
     inset 0 1px 1px 1px ${contract.colors.borderDark},
     1px 1px 0 0px ${contract.colors.borderDark}`,
+
+    // borderRadius: '1px',
 });
 
 export const tableRow = style({
@@ -49,8 +56,15 @@ export const tableRow = style({
 });
 
 export const tableCell = style({
-  padding: contract.space[8],
-  borderRight: `1px solid ${contract.colors.borderLight}`,
+  padding: contract.space[4],
+
+  paddingLeft: contract.space[6],
+  paddingRight: contract.space[6],
+
+  textAlign: 'left',
+  // fontWeight: 'bold',
+  lineHeight: 1,
+
   selectors: {
     '&:last-child': {
       borderRight: 'none',

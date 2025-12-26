@@ -1,6 +1,7 @@
 import type { Meta } from '@storybook/react';
 import * as React from 'react';
 
+import { Frame } from '../components/Frame/Frame';
 import { DataTable, DataTableProps } from '../components/DataTable/DataTable';
 import { Modal } from '../components/Modal/Modal';
 import { FolderFile, Computer3, FileFind } from '@react95/icons';
