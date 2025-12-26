@@ -19,7 +19,7 @@ export const tip = style({
   position: 'absolute',
   top: calc.negate(contract.space[20]),
   textAlign: 'center',
-  zIndex: contract.zIndices.taskbar,
+  zIndex: contract.zIndices.tooltip,
 });
 
 export const wrapper = style({

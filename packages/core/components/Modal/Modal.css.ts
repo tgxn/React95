@@ -8,16 +8,11 @@ export const modalWrapper = recipe({
     flexDirection: 'column',
     position: 'fixed',
     padding: contract.space[2],
-    top: '50px',
+    // top: '50px',
     backgroundColor: contract.colors.material,
     boxShadow: contract.shadows.out,
   },
   variants: {
-    active: {
-      true: {
-        // zIndex: contract.zIndices.modal,
-      },
-    },
     minimized: {
       true: {
         display: 'none',
@@ -55,7 +50,7 @@ export const menuWrapper = style({
   listStyle: 'none',
   margin: '0',
   paddingLeft: '0',
-  paddingTop: '1px',
+  paddingTop: '0',
   paddingBottom: '1px',
   borderBottomStyle: 'solid',
   borderWidth: '1px',
@@ -68,12 +63,14 @@ export const menuItem = recipe({
     position: 'relative',
     paddingLeft: '6px',
     paddingRight: '6px',
+    paddingTop: '1px',
+    paddingBottom: '1px',
     userSelect: 'none',
   },
   variants: {
     active: {
       true: {
-        backgroundColor: contract.colors.material,
+        backgroundColor: contract.colors.headerBackground,
         color: contract.colors.materialTextInvert,
       },
     },
@@ -99,7 +96,7 @@ export const resizerLeft = style([
   {
     left: '-6px',
     top: 0,
-    bottom: 0,
+    bottom: '12px',
     width: '12px',
     cursor: 'ew-resize',
   },
@@ -109,9 +106,19 @@ export const resizerRight = style([
   {
     right: '-6px',
     top: 0,
-    bottom: 0,
+    bottom: '12px',
     width: '12px',
     cursor: 'ew-resize',
+  },
+]);
+export const resizerBottom = style([
+  resizer,
+  {
+    left: 0,
+    right: 0,
+    bottom: '-6px',
+    height: '12px',
+    cursor: 'ns-resize',
   },
 ]);
 export const resizerBottomRight = style([

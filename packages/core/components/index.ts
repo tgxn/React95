@@ -6,6 +6,7 @@ import { Avatar } from './Avatar/Avatar';
 import { Button } from './Button/Button';
 import { Checkbox } from './Checkbox/Checkbox';
 import { Cursor } from './Cursor/Cursor.css';
+import { DataTable } from './DataTable/DataTable';
 import { Dropdown } from './Dropdown/Dropdown';
 import { Fieldset } from './Fieldset/Fieldset';
 import { Frame } from './Frame/Frame';
@@ -30,6 +31,7 @@ export {
   Button,
   Checkbox,
   Cursor,
+  DataTable,
   Dropdown,
   Fieldset,
   Frame,

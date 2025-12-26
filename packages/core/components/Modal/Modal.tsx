@@ -156,7 +156,7 @@ const ModalRenderer = (
   const minWidth = 140;
   const minHeight = 80;
 
-  type ResizeDirection = 'left' | 'right' | 'bottom-right' | 'bottom-left';
+  type ResizeDirection = 'right' | 'bottom-right' | 'bottom';
 
   const startResize = (direction: ResizeDirection) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -171,7 +171,7 @@ const ModalRenderer = (
     const rect = el.getBoundingClientRect();
     const startWidth = rect.width;
     const startHeight = rect.height;
-    const startLeft = rect.left;
+    // const startLeft = rect.left;
 
     let raf = 0;
 
@@ -180,19 +180,13 @@ const ModalRenderer = (
       const dy = mv.clientY - startY;
       let newW = startWidth;
       let newH = startHeight;
-      let newLeft = startLeft;
 
       if (direction === 'right') {
         newW = Math.max(minWidth, startWidth + dx);
-      } else if (direction === 'left') {
-        newW = Math.max(minWidth, startWidth - dx);
-        newLeft = startLeft + dx;
       } else if (direction === 'bottom-right') {
         newW = Math.max(minWidth, startWidth + dx);
         newH = Math.max(minHeight, startHeight + dy);
-      } else if (direction === 'bottom-left') {
-        newW = Math.max(minWidth, startWidth - dx);
-        newLeft = startLeft + dx;
+      } else if (direction === 'bottom') {
         newH = Math.max(minHeight, startHeight + dy);
       }
 
@@ -200,15 +194,15 @@ const ModalRenderer = (
       raf = requestAnimationFrame(() => {
         el.style.width = `${Math.round(newW)}px`;
         el.style.height = `${Math.round(newH)}px`;
-        if (direction === 'left' || direction === 'bottom-left') {
-          el.style.left = `${Math.round(newLeft)}px`;
-        }
       });
     };
 
     const onUp = () => {
       isResizingRef.current = false;
-      document.removeEventListener('mousemove', onMove as unknown as EventListener);
+      document.removeEventListener(
+        'mousemove',
+        onMove as unknown as EventListener,
+      );
       document.removeEventListener('mouseup', onUp as unknown as EventListener);
       if (raf) cancelAnimationFrame(raf);
     };
@@ -221,7 +215,7 @@ const ModalRenderer = (
   useOnClickOutside(menuRef, () => {
     setMenuOpened('');
   });
-  
+
   useEffect(() => {
     const unsubscribeVisibility = subscribe(
       ModalEvents.ModalVisibilityChanged,
@@ -234,32 +228,28 @@ const ModalRenderer = (
       },
     );
 
+    // if `defaultMinimized` is set, keep it minimized and don't steal focus
+    if (defaultClosed) {
+      minimize(id);
+    } else {
+      add({
+        id,
+        icon,
+        title: title || '',
+        hasButton,
+      });
 
-        // if `defaultMinimized` is set, keep it minimized and don't steal focus
-        if (defaultClosed) {
-          minimize(id);
-        } else {
+      focus(id);
+      // add to zorder and bring to front on mount
+      bringToFront(id);
+      forceUpdate(n => n + 1);
+    }
 
-          add({
-            id,
-            icon,
-            title: title || '',
-            hasButton,
-          });
-          
-          focus(id);
-          // add to zorder and bring to front on mount
-          bringToFront(id);
-          forceUpdate(n => n + 1);
-        }
- 
     return () => {
-      
-        remove(id);
-        removeFromZOrder(id);
-      
-      unsubscribeVisibility();
+      remove(id);
+      removeFromZOrder(id);
 
+      unsubscribeVisibility();
     };
   }, [
     id,
@@ -308,7 +298,7 @@ const ModalRenderer = (
     <Frame
       {...rest}
       className={cn(
-        styles.modalWrapper({ active: isActive, minimized: isModalMinimized }),
+        styles.modalWrapper({ minimized: isModalMinimized }),
         className,
       )}
       role="dialog"
@@ -372,24 +362,24 @@ const ModalRenderer = (
 
       {isResizeable && (
         <>
-          <div
+          {/* <div
             className={styles.resizerLeft}
             onMouseDown={startResize('left')}
             aria-hidden
-          />
+          /> */}
           <div
             className={styles.resizerRight}
             onMouseDown={startResize('right')}
             aria-hidden
           />
           <div
-            className={styles.resizerBottomLeft}
-            onMouseDown={startResize('bottom-left')}
+            className={styles.resizerBottomRight}
+            onMouseDown={startResize('bottom-right')}
             aria-hidden
           />
           <div
-            className={styles.resizerBottomRight}
-            onMouseDown={startResize('bottom-right')}
+            className={styles.resizerBottom}
+            onMouseDown={startResize('bottom')}
             aria-hidden
           />
         </>

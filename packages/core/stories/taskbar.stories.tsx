@@ -1,7 +1,19 @@
 import type { Meta } from '@storybook/react';
 import * as React from 'react';
 
-import { ReaderClosed, WindowsExplorer } from '@react95/icons';
+import {
+  ReaderClosed,
+  WindowsExplorer,
+  FolderExe,
+  FolderExe2,
+  FolderFile,
+  FolderPrint,
+  FolderSettings,
+  MicrosoftExchange,
+  MicrosoftNetwork,
+  MsDos,
+  Settings,
+} from '@react95/icons';
 import { List, Modal, TitleBar } from '../components';
 import { TaskBar } from '../components/TaskBar/TaskBar';
 
@@ -51,6 +63,43 @@ export const Simple = {
         <TaskBar
           list={
             <List>
+              <List.Item icon={<FolderExe2 variant="32x32_4" />}>
+                <List width={'200px'}>
+                  <List.Item icon={<FolderExe variant="16x16_4" />}>
+                    Accessories
+                  </List.Item>
+                  <List.Item icon={<FolderExe variant="16x16_4" />}>
+                    StartUp
+                  </List.Item>
+                  <List.Item icon={<MicrosoftExchange variant="16x16_4" />}>
+                    Microsoft Exchange
+                  </List.Item>
+                  <List.Item icon={<MsDos variant="16x16_32" />}>
+                    MS-DOS Prompt
+                  </List.Item>
+                  <List.Item icon={<MicrosoftNetwork variant="16x16_4" />}>
+                    The Microsoft Network
+                  </List.Item>
+                  <List.Item icon={<WindowsExplorer variant="16x16_4" />}>
+                    Windows Explorer
+                  </List.Item>
+                </List>
+                Programs
+              </List.Item>
+              <List.Item icon={<FolderFile variant="32x32_4" />}>
+                Documents
+              </List.Item>
+              <List.Item icon={<Settings variant="32x32_4" />}>
+                <List width={'200px'}>
+                  <List.Item icon={<FolderSettings variant="16x16_4" />}>
+                    Control Panel
+                  </List.Item>
+                  <List.Item icon={<FolderPrint variant="16x16_4" />}>
+                    Printers
+                  </List.Item>
+                </List>
+                Settings
+              </List.Item>
               <List.Item
                 icon={<ReaderClosed variant="32x32_4" />}
                 onClick={() => toggleSecond(true)}
